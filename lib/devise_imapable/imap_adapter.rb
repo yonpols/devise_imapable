@@ -7,7 +7,12 @@ module Devise
   module ImapAdapter
 
     def self.valid_credentials?(username, password)
-      imap = Net::IMAP.new(Devise.imap_server, 143, Devise.imap_server_use_ssl)
+      if Devise.imap_server_use_ssl
+        port = 993
+      else
+        port = 143
+      end
+      imap = Net::IMAP.new(Devise.imap_server, port, Devise.imap_server_use_ssl)
       imap.authenticate("cram-md5", username, password)
       true
     rescue Net::IMAP::ResponseError => e
