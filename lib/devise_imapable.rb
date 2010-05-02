@@ -10,8 +10,12 @@ module Devise
   @@imap_server = nil
 
   # default email suffix
-  mattr_accessor :default_email_suffix
+  mattr_accessor :imap_default_email_suffix
   @@default_email_suffix = nil
+  
+  # imap server to use SSL?
+  mattr_accessor :imap_server_use_ssl
+  @@imap_server_use_ssl = false
 end
 
 # Add +:imap_authenticatable+ strategy to defaults.

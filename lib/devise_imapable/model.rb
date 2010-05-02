@@ -37,8 +37,8 @@ module Devise
 
       module ClassMethods
         def find_for_imap_authentication(conditions)
-          unless conditions[:email] && conditions[:email].include?('@') && Devise.default_email_suffix
-            conditions[:email] = "#{conditions[:email]}@#{Devise.default_email_suffix}"
+          unless conditions[:email] && conditions[:email].include?('@') && Devise.imap_default_email_suffix
+            conditions[:email] = "#{conditions[:email]}@#{Devise.imap_default_email_suffix}"
           end
           
           # Find or create
