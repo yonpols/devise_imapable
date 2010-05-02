@@ -13,7 +13,7 @@ module Devise
       extend ActiveSupport::Concern
 
       included do
-        attr_reader :password
+        attr_accessor :password
       end
 
       # Verifies whether an incoming_password (ie from sign in) is the user password.
