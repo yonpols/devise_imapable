@@ -20,4 +20,5 @@ Devise.add_module(:imap_authenticatable,
                   :strategy   => true,
                   :controller => :sessions,
                   :model  => 'devise_imapable/model',
-                  :routes => :imap_authenticatable)
+                  :route => :imap_authenticatable)
+                  # Also possible: :flash, the *flash messages* used by this helper
