@@ -8,24 +8,17 @@ If you are building applications for use within your organisation which require 
 Installation
 ------------
 
-**Please note that Devise-Imapable only works with Devise 1.0.5 at the moment, changes for 1.0.6 will be made soon**
+**Please note that this fork of devise-imapable was modified for Rails 3 and Devise 1.1rc1**
 
-Currently this can only be installed as a plugin.
+To install, add the following to your Gemfile:
 
-    script/plugin install git@github.com:joshk/devise_imapable.git
-
-*Now in gem form, install notes coming soon*
-
+    gem 'devise_imapable', :git => 'git://github.com/LouisStAmour/devise_imapable.git'
 
 **And don't forget to add [Devise](http://github.com/plataformatec/devise)!**
 
-either in config/environment.rb:
+e.g.
 
-    config.gem 'devise'
-
-or in bundler
-
-    gem 'devise'
+    gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 
 
 Setup
@@ -37,7 +30,7 @@ First the schema :
 
     create_table :users do |t|
 
-      t.imapable
+      t.imap_authenticatable
 
     end
 
@@ -53,7 +46,7 @@ then finally the model :
 
     class User < ActiveRecord::Base
 
-      devise :rememberable, :trackable, :timeoutable, :imapable
+      devise :rememberable, :trackable, :timeoutable, :imap_authenticatable
 
       # Setup accessible (or protected) attributes for your model
       attr_accessible :email, :password, :remember_me
@@ -61,7 +54,7 @@ then finally the model :
       ...
     end
 
-I recommend using :rememberable, :trackable, :timeoutable along with :imapable as it gives a full feature set for logins.
+I recommend using :rememberable, :trackable, :timeoutable along with :imap_authenticatable as it gives a full feature set for logins.
 
 
 Usage

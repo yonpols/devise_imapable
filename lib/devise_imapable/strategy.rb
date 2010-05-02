@@ -1,36 +1,21 @@
-require 'devise/strategies/base'
+require 'devise/strategies/authenticatable'
 
 module Devise
   module Strategies
     # Strategy for signing in a user based on his email and password using imap.
-    # Redirects to sign_in page if it's not authenticated
-    class Imapable < Base
-      def valid?
-        valid_controller? && valid_params? && mapping.to.respond_to?(:authenticate_with_imap)
-      end
-
-      # Authenticate a user based on email and password params, returning to warden
-      # success and the authenticated user if everything is okay. Otherwise redirect
-      # to sign in page.
+    class ImapAuthenticatable < Authenticatable
       def authenticate!
-        if resource = mapping.to.authenticate_with_imap(params[scope])
+        resource = mapping.to.find_for_imap_authentication(authentication_hash)
+
+        if validate(resource){ resource.valid_password?(password) }
+          resource.after_database_authentication
           success!(resource)
         else
           fail(:invalid)
         end
       end
-
-      protected
-
-        def valid_controller?
-          params[:controller] == 'sessions'
-        end
-
-        def valid_params?
-          params[scope] && params[scope][:password].present?
-        end
     end
   end
 end
 
-Warden::Strategies.add(:imapable, Devise::Strategies::Imapable)
+Warden::Strategies.add(:imap_authenticatable, Devise::Strategies::ImapAuthenticatable)

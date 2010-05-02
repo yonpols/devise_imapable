@@ -31,7 +31,7 @@ begin
     gemspec.description = "For when you don't have access to LDAP"
     gemspec.email = "josh.kalderimis@gmail.com"
     gemspec.homepage = "http://github.com/joshk/devise_imapable"
-    gemspec.authors = ["Josh Kalderimis"]
+    gemspec.authors = ["Josh Kalderimis","Louis St-Amour"]
     gemspec.add_runtime_dependency "devise", "> 1.0.4"
   end
   Jeweler::GemcutterTasks.new

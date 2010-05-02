@@ -3,7 +3,6 @@ require 'devise'
 
 require 'devise_imapable/schema'
 require 'devise_imapable/imap_adapter'
-require 'devise_imapable/routes'
 
 module Devise
   # imap server address for authentication.
@@ -15,10 +14,10 @@ module Devise
   @@default_email_suffix = nil
 end
 
-# Add +:imapable+ strategy to defaults.
+# Add +:imap_authenticatable+ strategy to defaults.
 #
-Devise.add_module(:imapable,
+Devise.add_module(:imap_authenticatable,
                   :strategy   => true,
                   :controller => :sessions,
                   :model  => 'devise_imapable/model',
-                  :routes => :imapable)
+                  :routes => :imap_authenticatable)
