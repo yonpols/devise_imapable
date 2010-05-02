@@ -13,7 +13,7 @@ module Devise
         port = 143
       end
       imap = Net::IMAP.new(Devise.imap_server, port, Devise.imap_server_use_ssl)
-      imap.authenticate("cram-md5", username, password)
+      imap.login(username, password)
       true
     rescue Net::IMAP::ResponseError => e
       false
