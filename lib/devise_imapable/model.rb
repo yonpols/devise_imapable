@@ -19,8 +19,8 @@ module Devise
       # Verifies whether an incoming_password (ie from sign in) is the user password.
       def valid_password?(incoming_password)
         valid = Devise::ImapAdapter.valid_credentials?(self.email, incoming_password)
-        if valid # Create this record if valid.
-           resource.new_record? ? create(conditions) : resource
+        if valid && new_record? # Create this record if valid.
+          create
         end
         return valid
       end
@@ -37,8 +37,10 @@ module Devise
 
       module ClassMethods
         def find_for_imap_authentication(conditions)
-          unless conditions[:email] && conditions[:email].include?('@') && Devise.imap_default_email_suffix
-            conditions[:email] = "#{conditions[:email]}@#{Devise.imap_default_email_suffix}"
+          unless Devise.imap_default_email_suffix.nil?
+            if conditions[:email] && !conditions[:email].include?('@')
+              conditions[:email] = "#{conditions[:email]}@#{Devise.imap_default_email_suffix}"
+            end
           end
           
           # Find or create
