@@ -23,5 +23,6 @@ end
 Devise.add_module(:imap_authenticatable,
                   :strategy   => true,
                   :controller => :sessions,
-                  :model  => 'devise_imapable/model')
+                  :route      => :session,
+                  :model      => 'devise_imapable/model')
                   # Also possible: :route, :flash
